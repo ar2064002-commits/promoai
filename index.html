@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PromoAI — AI Promo Video Maker</title>
+<style>
+:root{--bg:#080812;--card:#121225;--muted:#9ca3af;--p:#8b5cf6;--pink:#ec4899}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:radial-gradient(circle at 10% 0,#3b176b,transparent 30%),radial-gradient(circle at 90% 10%,#65143d,transparent 28%),var(--bg);color:#fff}
+nav{height:72px;padding:0 7%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff15}.logo{font-size:25px;font-weight:900}.logo b{color:#c084fc}
+.btn{border:0;border-radius:14px;padding:13px 19px;background:linear-gradient(90deg,var(--p),var(--pink));color:#fff;font-weight:bold;cursor:pointer}
+.hero{text-align:center;padding:72px 18px 35px}.tag{display:inline-block;padding:9px 15px;border:1px solid #a855f755;border-radius:999px;background:#7c3aed20;color:#d8b4fe}.hero h1{font-size:clamp(40px,8vw,76px);line-height:1.1;margin:20px 0}.gradient{background:linear-gradient(90deg,#c084fc,#f472b6,#fb923c);background-clip:text;color:transparent}.hero p{max-width:650px;margin:auto;color:var(--muted);line-height:1.8;font-size:17px}
+.studio{max-width:1150px;margin:20px auto 60px;padding:20px;display:grid;grid-template-columns:1fr 360px;gap:25px;background:#ffffff08;border:1px solid #ffffff14;border-radius:28px}.card{background:#ffffff08;border:1px solid #ffffff12;border-radius:20px;padding:20px;margin-bottom:16px}.drop{border:2px dashed #ffffff30;border-radius:18px;padding:38px 15px;text-align:center;cursor:pointer}.drop:hover{border-color:#a855f7}.thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}.thumb{aspect-ratio:1;border-radius:10px;overflow:hidden}.thumb img{width:100%;height:100%;object-fit:cover}
+textarea{width:100%;height:115px;margin-top:10px;border-radius:14px;border:1px solid #ffffff18;background:#070710;color:#fff;padding:14px;font-size:15px}.recrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.record{background:#ef4444}.stop{background:#374151}.audio{color:#86efac;font-size:13px}
+.preview{width:100%;aspect-ratio:9/16;background:#020204;border-radius:28px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;text-align:center}.preview img{width:100%;height:100%;object-fit:cover}.caption{position:absolute;bottom:70px;left:14px;right:14px;background:#0009;padding:12px;border-radius:12px;font-weight:bold}.watermark{position:absolute;bottom:18px;right:15px;background:#000b;padding:7px 10px;border-radius:8px;font-size:11px}.empty{color:#777;padding:25px}.status{text-align:center;min-height:24px;color:#c084fc;margin-top:10px}.actions{display:flex;gap:10px;margin-top:14px}.actions button,.actions a{flex:1;border:0;border-radius:13px;padding:13px;text-align:center;text-decoration:none;font-weight:bold;cursor:pointer}.download{background:#fff;color:#000}.wa{background:#16a34a;color:#fff}.hidden{display:none}
+footer{text-align:center;color:#777;padding:30px}@media(max-width:850px){.studio{grid-template-columns:1fr;margin:12px}.preview{max-width:340px;margin:auto}.thumbs{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<nav><div class="logo">Promo<b>AI</b> ✨</div><button class="btn" onclick="document.querySelector('.studio').scrollIntoView({behavior:'smooth'})">فری ویڈیو بنائیں</button></nav>
+<section class="hero"><div class="tag">✨ AI Promo Video Maker</div><h1>اپنی تصاویر سے بنائیں<br><span class="gradient">دلکش Promo Video</span></h1><p>اپنی پروڈکٹ تصاویر، آواز اور اشتہاری پیغام شامل کریں اور موبائل کے لیے 9:16 ویڈیو پری ویو تیار کریں۔</p></section>
+<main class="studio">
+<div>
+<div class="card"><h2>📸 1. پروڈکٹ تصاویر</h2><div class="drop" id="drop"><input id="images" type="file" accept="image/*" multiple hidden><h3>تصاویر منتخب کرنے کے لیے کلک کریں</h3><p>2 سے 5 تصاویر اپ لوڈ کریں</p></div><div class="thumbs" id="thumbs"></div></div>
+<div class="card"><h2>🎙️ 2. اپنی آواز ریکارڈ کریں</h2><div class="recrow"><button class="btn record" id="record">● ریکارڈ شروع کریں</button><button class="btn stop hidden" id="stop">■ ریکارڈ بند کریں</button><span class="audio" id="audioStatus">آڈیو ابھی ریکارڈ نہیں ہوئی</span></div></div>
+<div class="card"><h2>📝 3. Ad Script</h2><textarea id="script" placeholder="مثال: ہماری نئی پروڈکٹ آج ہی آرڈر کریں اور خاص رعایت حاصل کریں!"></textarea><p style="color:#888;font-size:12px">فری پلان میں PromoAI FREE واٹرمارک شامل ہوگا۔</p></div>
+<button class="btn" id="generate" style="width:100%;padding:18px;font-size:18px">✨ Promo Preview بنائیں</button><div class="status" id="status"></div>
+</div>
+<div class="card"><h2 style="text-align:center">📱 Live Video Preview</h2><div class="preview" id="preview"><div class="empty">تصاویر اور Script شامل کریں<br><br>پری ویو یہاں نظر آئے گا</div></div><div class="actions"><button class="download" id="download">⬇️ ڈاؤن لوڈ</button><a class="wa" id="wa" target="_blank">🟢 WhatsApp</a></div></div>
+</main>
+<footer>© 2026 PromoAI — Free Plan</footer>
+<script>
+let files=[],recorder,chunks=[],audioBlob=null,slide=0,timer=null;
+const input=document.getElementById('images'),drop=document.getElementById('drop'),thumbs=document.getElementById('thumbs'),preview=document.getElementById('preview');
+drop.onclick=()=>input.click();input.onchange=e=>{files=[...e.target.files].filter(f=>f.type.startsWith('image/')).slice(0,5);renderThumbs()};
+function renderThumbs(){thumbs.innerHTML='';files.forEach(f=>{let d=document.createElement('div');d.className='thumb';d.innerHTML=`<img src="${URL.createObjectURL(f)}">`;thumbs.appendChild(d)})}
+document.getElementById('record').onclick=async()=>{try{let stream=await navigator.mediaDevices.getUserMedia({audio:true});recorder=new MediaRecorder(stream);chunks=[];recorder.ondataavailable=e=>chunks.push(e.data);recorder.onstop=()=>{audioBlob=new Blob(chunks,{type:'audio/webm'});document.getElementById('audioStatus').textContent='✓ آڈیو ریکارڈ ہو گئی'};recorder.start();document.getElementById('record').classList.add('hidden');document.getElementById('stop').classList.remove('hidden');document.getElementById('audioStatus').textContent='● ریکارڈنگ جاری ہے...'}catch(e){alert('مائیکروفون کی اجازت درکار ہے')}}
+document.getElementById('stop').onclick=()=>{recorder.stop();document.getElementById('stop').classList.add('hidden');document.getElementById('record').classList.remove('hidden')}
+document.getElementById('generate').onclick=()=>{if(files.length<2){alert('کم از کم 2 تصاویر اپ لوڈ کریں');return}let text=document.getElementById('script').value||'آپ کی شاندار پروڈکٹ، آج ہی آرڈر کریں!';slide=0;clearInterval(timer);showSlide();timer=setInterval(()=>{slide=(slide+1)%files.length;showSlide()},3000);document.getElementById('status').textContent='✅ Promo Preview تیار ہے!';document.getElementById('wa').href='https://wa.me/?text='+encodeURIComponent(text)}
+function showSlide(){let url=URL.createObjectURL(files[slide]);preview.innerHTML=`<img src="${url}"><div class="caption">${document.getElementById('script').value||'آپ کی شاندار پروڈکٹ، آج ہی آرڈر کریں!'}</div><div class="watermark">PromoAI FREE</div>`}
+document.getElementById('download').onclick=()=>alert('یہ HTML ورژن Promo Preview بناتا ہے۔ اصل MP4 ویڈیو کے لیے بعد میں server/backend لگانا ہوگا۔');
+</script>
+</body></html>
